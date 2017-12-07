@@ -2,14 +2,12 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -28,9 +26,9 @@ public class FetchDataServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{	
-			Stock stock = YahooFinance.get("INFY.NS",true);
+			String id = request.getParameter("sid");
+			Stock stock = YahooFinance.get(id, true);
 			LiveData d1 = null;
-			HttpSession s = request.getSession();
 			System.out.println("==============LIVE DATA=============");
 			System.err.println("Symbol-"+stock.getSymbol());
 			System.out.println("Price-"+stock.getQuote().getPrice());
