@@ -13,17 +13,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import models.Data;
+import dao.SaveData;
+import dto.Data;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.HistoricalQuote;
 import yahoofinance.histquotes.Interval;
@@ -60,24 +59,28 @@ public class FetchHistoryServlet extends HttpServlet{
 				List<HistoricalQuote> history = (YahooFinance.get(id)).getHistory(from,to,Interval.DAILY);
 				HashMap<String, Data> data = new HashMap<>();
 
-				SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 				for(HistoricalQuote temp : history)
 				{
-					Data d = new Data();
-					d.setSymbol(temp.getSymbol());
-					d.setLow(temp.getLow());
-					d.setHigh(temp.getHigh());
-					d.setOpen(temp.getOpen());
-					d.setClose(temp.getClose());
-					d.setAdjustedClose(temp.getAdjClose());
-					d.setDate(format1.format(temp.getDate().getTime()));
-					data.put(d.getDate(), d);
+					if(temp.getLow() != null){
+						Data d = new Data();
+						d.setSymbol(temp.getSymbol());
+						d.setLow(temp.getLow());
+						d.setHigh(temp.getHigh());
+						d.setOpen(temp.getOpen());
+						d.setClose(temp.getClose());
+						d.setVolume(temp.getVolume());
+						d.setDate(format1.format(temp.getDate().getTime()));
+						d.setAmt_change(d.getClose().floatValue() - d.getOpen().floatValue());
+						d.setPercent_change((d.getAmt_change()/d.getOpen().floatValue())*100);
+						data.put(d.getDate(), d);
+					}
 				}
 
 				List<Map.Entry<String, Data>> entryList = new ArrayList<Map.Entry<String, Data>>(data.entrySet());
 
 				Collections.sort(entryList, new Comparator<Map.Entry<String, Data>>() {
-					SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+					SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 					@Override
 					public int compare(Map.Entry<String, Data> one,Map.Entry<String, Data> two) 
 					{
@@ -100,6 +103,7 @@ public class FetchHistoryServlet extends HttpServlet{
 				{
 					data1.put(dd.getValue().getDate(), dd.getValue());
 				}
+				new SaveData().saveData(data1);
 				String str = FetchHistoryServlet.createJSON(data1);
 				p.write(str);
 			}
@@ -116,14 +120,14 @@ public class FetchHistoryServlet extends HttpServlet{
 		for(String key : data.keySet())
 		{
 			Data d = data.get(key);
-			System.out.println(d);
+			//System.out.println(d);
 			JSONObject j = new JSONObject();
 			j.put("symbol", d.getSymbol());
 			j.put("low", d.getLow());
 			j.put("high", d.getHigh());
 			j.put("open", d.getOpen());
 			j.put("close", d.getClose());
-			j.put("adjClose", d.getAdjustedClose());
+			j.put("volume", d.getvolume());
 			j.put("date", d.getDate());
 			arr.put(j);
 

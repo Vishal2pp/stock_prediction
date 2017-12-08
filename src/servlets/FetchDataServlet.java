@@ -2,16 +2,13 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONObject;
-
-import models.LiveData;
+import dto.LiveData;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 
@@ -46,28 +43,6 @@ public class FetchDataServlet extends HttpServlet {
 			String str = FetchDataServlet.toJSON(d1);
 			PrintWriter p = response.getWriter();
 			p.write(str);
-
-			/*Calendar from = Calendar.getInstance();
-			Calendar to = Calendar.getInstance();
-			from.add(Calendar.YEAR, -1);
-
-			List<HistoricalQuote> history = (YahooFinance.get("GOOG")).getHistory();System.out.println(history);
-			HashMap<String, Data> data = new HashMap<>();
-
-			SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
-			int i = 0;
-			for(HistoricalQuote temp : history)
-			{
-				Data d = new Data();
-				d.setSymbol(temp.getSymbol());
-				d.setLow(temp.getLow());
-				d.setHigh(temp.getHigh());
-				d.setOpen(temp.getOpen());
-				d.setClose(temp.getClose());
-				d.setAdjustedClose(temp.getAdjClose());
-				d.setDate(format1.format(temp.getDate().getTime()));
-				data.put(d.getDate(), d);
-			}*/
 
 		} catch (IOException e) {
 			e.printStackTrace();
