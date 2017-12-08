@@ -10,25 +10,13 @@ function analyseData()
 	var tmp = document.getElementById("symbId");
 	var symId = tmp.options[tmp.selectedIndex].value;
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "FetchDataServlet?sid="+symId, true);
+	xhttp.open("POST", "AnalyseServlet?sid="+symId, true);
 	xhttp.send();
 	xhttp.onreadystatechange = function() 
 	{
 		if(this.readyState == 4 && this.status == 200) 
 		{
-			var data = JSON.parse(this.responseText);
-			console.log(data);
-			var table = "";
-			table += "<table border='1'padding='0'><tr><th colspan='5'>Live Data for "+data.liveData.symbol+"</th></tr>";
-			table += "<tr><th>Price</th><th>Opening Price</th><th>Ask</th><th>Bid</th><th>Previous Close</th></tr>";
-			table += "<td>"+data.liveData.price+"</td>";
-			table += "<td>"+data.liveData.openingPrice+"</td>";
-			table += "<td>"+data.liveData.ask+"</td>";
-			table += "<td>"+data.liveData.bid+"</td>";
-			table += "<td>"+data.liveData.preClose+"</td></tr>"; 
-			table += "<tr><td colspan='5' align='right'><input type='button' id='"+data.liveData.symbol+"'value='Get History' onclick='getHistory(this)'/><div id='timeDiv'></div></td></tr></table>";
-			document.getElementById("dataDiv").innerHTML = table ;
-			fetchData();
+			document.getElementById("dataDiv1").innerHTML = this.responseText ;
 		}
 	};
 }
@@ -62,8 +50,7 @@ function getHistory(obj)
 		</div>
 		<div id="site_content">
 			<div id="content">
-			<br>
-				<br>
+				<br> <br>
 				<div id="formDiv">
 					<table border="1">
 						<tr>
@@ -84,7 +71,7 @@ function getHistory(obj)
 						</tr>
 					</table>
 				</div>
-				<div id="dataDiv"></div>
+				<div id="dataDiv1"></div>
 				<br> <br>
 			</div>
 		</div>

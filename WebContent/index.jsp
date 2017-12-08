@@ -86,8 +86,7 @@ function getHistory(obj)
 		<div id="site_content">
 
 			<div id="content">
-				<br>
-				<br>
+				<br> <br>
 				<div id="formDiv">
 					<table border="1">
 						<tr>
