@@ -18,10 +18,10 @@ import yahoofinance.YahooFinance;
 @WebServlet("/FetchDataServlet")
 public class FetchDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public FetchDataServlet() {
-        super();
-    }
+
+	public FetchDataServlet() {
+		super();
+	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +35,7 @@ public class FetchDataServlet extends HttpServlet {
 			System.out.println("Opening price-"+stock.getQuote().getOpen());
 			System.out.println("Ask-"+stock.getQuote().getAsk());
 			System.out.println("Bid-"+stock.getQuote().getBid());
-			
+
 			d1 = new LiveData();
 			d1.setSymbol(stock.getSymbol());
 			d1.setPrice(stock.getQuote().getPrice());
@@ -50,10 +50,10 @@ public class FetchDataServlet extends HttpServlet {
 			/*Calendar from = Calendar.getInstance();
 			Calendar to = Calendar.getInstance();
 			from.add(Calendar.YEAR, -1);
-			
+
 			List<HistoricalQuote> history = (YahooFinance.get("GOOG")).getHistory();System.out.println(history);
 			HashMap<String, Data> data = new HashMap<>();
-			
+
 			SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
 			int i = 0;
 			for(HistoricalQuote temp : history)
@@ -68,10 +68,10 @@ public class FetchDataServlet extends HttpServlet {
 				d.setDate(format1.format(temp.getDate().getTime()));
 				data.put(d.getDate(), d);
 			}*/
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
-						}
+		}
 	}
 
 

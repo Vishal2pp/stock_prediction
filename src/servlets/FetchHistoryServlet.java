@@ -31,15 +31,15 @@ import yahoofinance.histquotes.Interval;
 @WebServlet("/FetchHistoryServlet")
 public class FetchHistoryServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
- 
-    public FetchHistoryServlet() {
-        super();
-    }
-    
+
+	public FetchHistoryServlet() {
+		super();
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try
 		{	
@@ -56,10 +56,10 @@ public class FetchHistoryServlet extends HttpServlet{
 				Calendar from = Calendar.getInstance();
 				Calendar to = Calendar.getInstance();
 				from.add(Calendar.YEAR, -1);
-				
+
 				List<HistoricalQuote> history = (YahooFinance.get(id)).getHistory(from,to,Interval.DAILY);
 				HashMap<String, Data> data = new HashMap<>();
-				
+
 				SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
 				for(HistoricalQuote temp : history)
 				{
@@ -73,28 +73,28 @@ public class FetchHistoryServlet extends HttpServlet{
 					d.setDate(format1.format(temp.getDate().getTime()));
 					data.put(d.getDate(), d);
 				}
-				
+
 				List<Map.Entry<String, Data>> entryList = new ArrayList<Map.Entry<String, Data>>(data.entrySet());
-				
+
 				Collections.sort(entryList, new Comparator<Map.Entry<String, Data>>() {
 					SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
-	                @Override
-	                public int compare(Map.Entry<String, Data> one,Map.Entry<String, Data> two) 
-	                {
-	                	int i = 0;
-	                    try 
-	                    {
+					@Override
+					public int compare(Map.Entry<String, Data> one,Map.Entry<String, Data> two) 
+					{
+						int i = 0;
+						try 
+						{
 							i = f.parse(one.getValue().getDate()).compareTo(f.parse(two.getValue().getDate()));
 						} 
-	                    catch (ParseException e) 
-	                    {
+						catch (ParseException e) 
+						{
 							e.printStackTrace();
 						}
-	                    return i;
-	                }
-	            }
-				);
-				
+						return i;
+					}
+				}
+						);
+
 				LinkedHashMap<String, Data> data1 = new LinkedHashMap<>();
 				for(Entry<String, Data> dd : entryList)
 				{
@@ -103,7 +103,7 @@ public class FetchHistoryServlet extends HttpServlet{
 				String str = FetchHistoryServlet.createJSON(data1);
 				p.write(str);
 			}
-			
+
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
@@ -126,7 +126,7 @@ public class FetchHistoryServlet extends HttpServlet{
 			j.put("adjClose", d.getAdjustedClose());
 			j.put("date", d.getDate());
 			arr.put(j);
-			
+
 		}
 		main.put("d",arr);
 		return main.toString();

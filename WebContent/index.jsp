@@ -85,23 +85,23 @@ function getHistory(obj)
 		</div>
 		<div id="site_content">
 
-			<div id="content"><br><br>
+			<div id="content">
+				<br>
+				<br>
 				<div id="formDiv">
 					<table border="1">
 						<tr>
 							<td>Select Symbol-</td>
-							<td>
-								<select id="symbId">
-								  <option value="PERSISTENT.BO">Persistent Limited</option>
-								  <option value="INFY.NS">Infosys</option>
-								  <option value="AP-U.TI">Apple</option>
-								  <option value="AD8.AX">Audi</option>
-								  <option value="MSFT">Microsoft</option>
-								  <option value="RELIANCE.NS">Reliance</option>
-								  <option value="TCS.NS">TCS</option>
-								  <option value="FB-U.TI">Facebook</option>
-								</select>
-							</td>
+							<td><select id="symbId">
+									<option value="PERSISTENT.BO">Persistent Limited</option>
+									<option value="INFY.NS">Infosys</option>
+									<option value="AP-U.TI">Apple</option>
+									<option value="AD8.AX">Audi</option>
+									<option value="MSFT">Microsoft</option>
+									<option value="RELIANCE.NS">Reliance</option>
+									<option value="TCS.NS">TCS</option>
+									<option value="FB-U.TI">Facebook</option>
+							</select></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input type="button" id="btn" value="Fetch Data" onclick="call()"></td>
