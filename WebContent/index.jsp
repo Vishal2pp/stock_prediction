@@ -71,7 +71,7 @@ function getHistory(obj)
 					<h1>
 						<a href="index.html">Stock Prediction</span></a>
 					</h1>
-					<h2>Live, History, Predict...</h2>
+					<h2>Live, Analyze, Predict...</h2>
 				</div>
 			</div>
 			<div id="menubar">

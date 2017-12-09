@@ -34,7 +34,7 @@ function predictPrice()
 	{
 		if(this.readyState == 4 && this.status == 200) 
 		{
-			document.getElementById("dataDiv1").innerHTML = this.responseText ;
+			//document.getElementById("dataDiv1").innerHTML = this.responseText ;
 			g2 = new Dygraph(
 				    document.getElementById("chartDiv"),
 				    "analysis/"+symId+".csv", // path to CSV file
@@ -63,7 +63,7 @@ function getHistory(obj)
 					<h1>
 						<a href="index.html">Stock Prediction</span></a>
 					</h1>
-					<h2>Live, History, Predict...</h2>
+					<h2>Live, Analyze, Predict...</h2>
 				</div>
 			</div>
 			<div id="menubar">
@@ -94,8 +94,8 @@ function getHistory(obj)
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="2" align="center"><input type="button" id="btn" value="Analyse Data" onclick="analyseData()"></td>
-							<td colspan="2" align="center"><input type="button" id="btn" value="Predict Price" onclick="predictPrice()"></td>
+							<td align="center"><input type="button" id="btn" value="Analyse Data" onclick="analyseData()"></td>
+							<td align="center"><input type="button" id="btn" value="Predict Price" onclick="predictPrice()"></td>
 						</tr>
 					</table>
 				</div>
