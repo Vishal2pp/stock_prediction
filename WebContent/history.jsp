@@ -56,7 +56,7 @@ xhttp.onreadystatechange = function()
 			console.log(data);
 			var dataArr = data["d"];
 			var tb = "<table border='1'padding='0'><tr><th colspan='7'>History Data for "+dataArr[0].symbol+"</th></tr>";
-			tb += "<tr><th>Sr.No</th><th>Date</th><th>High</th><th>Low</th><th>Open</th><th>Close</th><th>Adjusted Close</th></tr>";
+			tb += "<tr><th>Sr.No</th><th>Date</th><th>High</th><th>Low</th><th>Open</th><th>Close</th><th>Volume</th><th>Amount Change</th><th>Percent Change</th></tr>";
 			for(var i = 0; i < dataArr.length; i++)
 			{
 				
@@ -66,7 +66,9 @@ xhttp.onreadystatechange = function()
 				tb += "<td>"+dataArr[i].low+"</td>";
 				tb += "<td>"+dataArr[i].open+"</td>";
 				tb += "<td>"+dataArr[i].close+"</td>";
-				tb += "<td>"+dataArr[i].adjClose+"</td></tr>";
+				tb += "<td>"+dataArr[i].volume+"</td>";
+				tb += "<td>"+dataArr[i].amt_change+"</td>";
+				tb += "<td>"+dataArr[i].per_change+"</td></tr>";
 			}
 			tb += "</table>";
 			document.getElementById("historyDiv").innerHTML = tb ;

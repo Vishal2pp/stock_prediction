@@ -12,10 +12,14 @@ html
 	width:100%;
 	padding-left:44%;
 }
+#dataDiv1{
+	width:100%;
+	padding-left:5%;
+}
 #historyDiv
 {
 	width:100%;
-	padding-left:24%;
+	padding-left:10%;
 }
 body
 { font: normal .80em 'trebuchet ms', arial, sans-serif;

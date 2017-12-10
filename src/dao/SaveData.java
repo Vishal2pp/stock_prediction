@@ -16,12 +16,12 @@ public class SaveData {
 				System.out.println("Connection failed");
 				return 0;
 			}
-
+			
 			String tableName = "";
 
 			for(String key : data1.keySet()){
 				Data d = data1.get(key);
-				tableName = d.getSymbol().trim();
+				tableName = d.getSymbol().trim().toLowerCase();
 			}
 
 			Statement st = con.createStatement();
@@ -62,7 +62,8 @@ public class SaveData {
 				stmnt.setFloat(8, data.getPercent_change());
 				stmnt.execute();
 			}
-
+			con.close();
+			st.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

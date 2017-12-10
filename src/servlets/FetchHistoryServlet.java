@@ -114,6 +114,8 @@ public class FetchHistoryServlet extends HttpServlet{
 			j.put("close", d.getClose());
 			j.put("volume", d.getvolume());
 			j.put("date", d.getDate());
+			j.put("amt_change", d.getAmt_change());
+			j.put("per_change", d.getPercent_change());
 			arr.put(j);
 
 		}

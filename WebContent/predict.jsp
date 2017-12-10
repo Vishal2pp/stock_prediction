@@ -4,6 +4,8 @@
 <head>
 <title>Stock Prediction</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" title="style" />
+<script type="text/javascript" src="js/dygraph.js"></script>
+<link rel="stylesheet" src="css/dygraph.css" />
 <script type="text/javascript">
 function analyseData()
 {
@@ -21,10 +23,35 @@ function analyseData()
 	};
 }
 
+function predictPrice()
+{
+	var tmp = document.getElementById("symbId");
+	var symId = tmp.options[tmp.selectedIndex].value;
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("POST", "SMAServlet?sid="+symId, true);
+	xhttp.send();
+	xhttp.onreadystatechange = function() 
+	{
+		if(this.readyState == 4 && this.status == 200) 
+		{
+			document.getElementById("dataDiv1").innerHTML = this.responseText ;
+			g2 = new Dygraph(
+				    document.getElementById("chartDiv"),
+				    "analysis/"+symId+".csv", // path to CSV file
+				    {
+				    	title: 'Actual Closing and SMA calculated closing',				    	
+				    	 ylabel: 'Price(Rs.)',
+			             xlabel: 'Date (Ticks indicate the start of the indicated time period)',
+				    }          // options
+				  );
+		}
+	};
+}
+/* 
 function getHistory(obj)
 {
 	window.open("history.jsp?id="+obj.id, "_self");
-}
+} */
 </script>
 </head>
 
@@ -68,10 +95,13 @@ function getHistory(obj)
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input type="button" id="btn" value="Analyse Data" onclick="analyseData()"></td>
+							<td colspan="2" align="center"><input type="button" id="btn" value="Predict Price" onclick="predictPrice()"></td>
 						</tr>
 					</table>
 				</div>
 				<div id="dataDiv1"></div>
+				<div id="priceDiv"></div>
+				<div id="chartDiv"></div>
 				<br> <br>
 			</div>
 		</div>

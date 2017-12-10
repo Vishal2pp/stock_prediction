@@ -48,7 +48,7 @@ public class AnalyseServlet extends HttpServlet {
 			Calendar to = Calendar.getInstance();
 			from.add(Calendar.YEAR, -1);
 
-			List<HistoricalQuote> history = (YahooFinance.get(id)).getHistory(from,to,Interval.DAILY);
+			List<HistoricalQuote> history = (YahooFinance.get(id)).getHistory(from, to, Interval.DAILY);
 			HashMap<String, Data> data = new HashMap<>();
 
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -144,6 +144,7 @@ public class AnalyseServlet extends HttpServlet {
 						System.out.println("Something is wrong Vishal");
 					}
 				}
+				result.close();
 			}
 
 			System.out.println("No of next day increase="+noOfNextDayIncrease);
@@ -161,13 +162,14 @@ public class AnalyseServlet extends HttpServlet {
 			System.out.println("D="+(noOfNextDayDecrease/totalDays) * 100);
 
 			PrintWriter p = response.getWriter();
-			p.write("<h2>Analysis of possibilites of next day increase or decrease in share price for "+id+" based on past day of 1 year duration.</h2>");
-			p.write("<h3>There is posibility of "+nextDayIncreasePercent+"% increase in price tommorrow.</h3>");
-			p.write("<h3>There is posibility of "+nextDayDecreasePercent+"% decrease in price tommorrow.</h3>");
-			p.write("<h3>Average increase in price for last 1 year is "+avgIncreasePercent+"%.</h3>");
-			p.write("<h3>Average decrease in price for last 1 year is "+avgDecreasePercent+"%.</h3>");
-			p.write("<h3>There were "+noOfNextDayNoChange+" days out of "+totalDays+" when there was no change in price</h3>");
-
+			p.write("<b>Analysis of possibilites of next day increase or decrease in share price for "+id+" based on past 1 year duration.</b></br></br>");
+			p.write("1) There is posibility of "+nextDayIncreasePercent+"% increase in price tommorrow.</br></br>");
+			p.write("2) There is posibility of "+nextDayDecreasePercent+"% decrease in price tommorrow.</br></br>");
+			p.write("3) Average increase in price for last 1 year is "+avgIncreasePercent+"%.</br></br>");
+			p.write("4) Average decrease in price for last 1 year is "+avgDecreasePercent+"%.</br></br>");
+			p.write("5) There were "+noOfNextDayNoChange+" days out of "+totalDays+" when there was no change in price.</br></br>");
+			con.close();
+			st.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
